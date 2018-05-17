@@ -37,30 +37,20 @@
     </div>
 </div>
 <script type="text/javascript">
-    function register() {
-        var username = $("#usernameId").val();
-        var password = $("#passwordId").val();
-
-        //盐要所有的端(PC,iOS,Android)必须一致
-        password = $.md5(password)
-
-        $.post({
-            url:'/account/register',
-            data : 'username='+username+'&password='+password,
-            //{status:1,message:"新增失败"}
-            //{status:0,message:"新增成功"}
-            success:function(obj){
-                if (obj.status==0) {
-                    window.location.href="/account/login";
-                }else{
-                    alert(obj.message);
-                }
-            },
-            error:function(){
-
-            }
-        });
-    }
+ function register(){
+  var password = $.md5($('#passwordId').val()+"linshuai")
+     $.ajax ({
+         url:"/account/register",
+         type:'post',
+         data:{
+             "username":$('#usernameId').val(),
+             "password":password,
+         },
+         success:function(data){
+            if(data.status==0) window.location.href = "/views/login.html"
+         }
+     })
+ }
 </script>
 </body>
 </html>
